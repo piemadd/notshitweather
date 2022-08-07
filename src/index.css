@@ -16,7 +16,7 @@ h1, h2, h3, h4, h5, h6, p, b {
   margin: 3px 6px;
 }
 
-main {
+.outerSection {
   padding: 4px;
   background-color: #222;
   border-radius: 4px;
@@ -24,7 +24,7 @@ main {
   margin-bottom: 0px;
 
   display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
 	gap: 0px 4px;
 }
 
@@ -33,6 +33,7 @@ main {
   padding: 4px;
   border-radius: 4px;
   background-color: #111;
+  overflow: scroll;
 }
 
 .innerCard {

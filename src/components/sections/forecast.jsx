@@ -1,6 +1,6 @@
 import WeatherCard from "../cards/weatherCard.jsx";
 
-export default function Forecast({ forecastType, forecastData, tz }) {
+export default function Forecast({ forecastType, forecastData, tz, limit = 6 }) {
   const forecastTypeName = forecastType === "hourly" ? "Hourly" : "Daily";
 
   const currentHour = new Date().getHours();
@@ -19,7 +19,7 @@ export default function Forecast({ forecastType, forecastData, tz }) {
       <section key={`${forecastTypeName}`} className={"outerCard"}>
         <h2>{forecastTypeName}</h2>
         {forecastData.periods.map((forecastDataPoint, i) => {
-          if (((i === 0 || i % 3 === 0) && i < 24 && forecastType === 'hourly') || (forecastType === 'daily' && i < 8)) {
+          if (i < limit) {
             return (
               <WeatherCard
                 forecastType={forecastType}

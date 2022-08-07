@@ -20,7 +20,7 @@ export default function WeatherCard({ forecastType, cardData, tz }) {
   
     if (cardData) {
       const startTime =
-        forecastType == "daily"
+        forecastType === "daily"
           ? cardData.name
           : new Date(cardData.startTime).toLocaleTimeString("en-US", {
               timeZone: tz,

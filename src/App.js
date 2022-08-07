@@ -1,6 +1,18 @@
 import "./App.css";
 
 import React, { useState, useEffect } from "react";
+import {
+  Box,
+  Paper,
+  BottomNavigation,
+  BottomNavigationAction,
+} from "@mui/material";
+import { LocationOn } from "@mui/icons-material";
+
+import useMediaQuery from "@mui/material/useMediaQuery";
+
+import Page from "./components/page.jsx";
+
 import Forecast from "./components/sections/forecast.jsx";
 
 function App() {
@@ -20,12 +32,10 @@ function App() {
       meta: {},
     },
   });
-
-  const [lastUpdated, setLastUpdated] = useState(
-    new Date()
-  );
-
+  const [lastUpdated, setLastUpdated] = useState(new Date());
   const [isLoading, setIsLoading] = useState(true);
+  const isDesktop = useMediaQuery("(min-width:740px)");
+  const [value, setValue] = React.useState(0);
 
   const fetchData = async () => {
     console.log("fetching data...");
@@ -42,41 +52,41 @@ function App() {
 
     const interval = setInterval(() => {
       fetchData();
-    }, 29000);
+    }, 1800000); //30 minutes
 
     return () => clearInterval(interval);
   }, []);
 
   return !isLoading ? (
-    <main>
-      <section className="outerSection">
-        <h1>Weather:</h1>
-      </section>
-      <section id="weather" className="outerSection">
-        {Object.keys(appData.weather).map((forecastType) => {
-          if (forecastType !== "meta") {
-            return (
-              <Forecast
-                key={`${forecastType}-forecast`}
-                forecastType={forecastType}
-                forecastData={appData.weather[forecastType]}
-                tz={appData.weather.meta.tz}
-              />
-            );
-          } else {
-            return null;
-          }
-        })}
-      </section>
-      <section className="outerSection">
-        <p>
-          Last Updated:{" "}
-          {lastUpdated.toLocaleString("en-US", {
-            timeZone: appData.weather.meta.tz,
-          })}
-        </p>
-      </section>
-    </main>
+    isDesktop ? (
+      <>
+        <Page />
+      </>
+    ) : (
+      <Box>
+        <Paper sx={{
+          pb: 7
+        }}>
+          <Page />
+        </Paper>
+        <Paper
+          sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
+          elevation={3}
+        >
+          <BottomNavigation
+            showLabels
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+          >
+            <BottomNavigationAction label="Recents" icon={<LocationOn />} />
+            <BottomNavigationAction label="Favorites" icon={<LocationOn />} />
+            <BottomNavigationAction label="Nearby" icon={<LocationOn />} />
+          </BottomNavigation>
+        </Paper>
+      </Box>
+    )
   ) : (
     <section>
       <h1>Loading...</h1>

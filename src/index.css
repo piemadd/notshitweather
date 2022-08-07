@@ -1,13 +1,58 @@
 body {
+  width: 100%;
+  height: 100%;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  background-color: #111;
+  color: #fff;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+h1, h2, h3, h4, h5, h6, p, b {
+  margin: 3px 6px;
+}
+
+main {
+  padding: 4px;
+  background-color: #222;
+  border-radius: 4px;
+  margin: 6px;
+  margin-bottom: 0px;
+
+  display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+	gap: 0px 4px;
+}
+
+.outerCard {
+  margin-top: 4px;
+  padding: 4px;
+  border-radius: 4px;
+  background-color: #111;
+}
+
+.innerCard {
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  border-radius: 4px;
+  background-color: #222;
+}
+
+.innerCard span {
+  display: flex;
+  flex-direction: row;
+}
+
+.innerCard span * {
+  align-self: center;
+}
+
+.icon {
+  font-size: 16px;
 }

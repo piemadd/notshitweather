@@ -16,22 +16,7 @@ import Page from "./components/page.jsx";
 import Forecast from "./components/sections/forecast.jsx";
 
 function App() {
-  const [appData, setAppData] = useState({
-    transit: {
-      cta: {
-        train: {},
-        bus: {},
-      },
-      metra: {
-        train: {},
-      },
-    },
-    weather: {
-      hourly: {},
-      daily: {},
-      meta: {},
-    },
-  });
+  const [appData, setAppData] = useState({});
   const [lastUpdated, setLastUpdated] = useState(new Date());
   const [isLoading, setIsLoading] = useState(true);
   const isDesktop = useMediaQuery("(min-width:740px)");
@@ -65,9 +50,10 @@ function App() {
     ) : (
       <Box>
         <Paper sx={{
-          pb: 7
-        }}>
-          <Page />
+          pb: 7,
+          bgcolor: "#111"
+        }} elevation={0}>
+          <Page data={appData}/>
         </Paper>
         <Paper
           sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}

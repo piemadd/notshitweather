@@ -16,9 +16,11 @@ const theme = createTheme({
         root: {
           // Some CSS
           color: '#fff',
-          backgroundColor: '#222',
-          
+          backgroundColor: '#222',          
         },
+        paddingDefault: {
+          padding: '0px',
+        }
       },
     },
     MuiBottomNavigation: {
@@ -51,6 +53,12 @@ const theme = createTheme({
     secondary: {
       main: '#ddd',
     },
+  },
+  typography: {
+    fontFamily: [
+      '"Atkinson Hyperlegible"',
+      'sans-serif',
+    ].join(','),
   },
 });
 

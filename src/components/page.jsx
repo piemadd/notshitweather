@@ -10,6 +10,7 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { DebounceInput } from "react-debounce-input";
 import cities from "../data/cities";
+import CityLink from "./cards/cityLink";
 
 export default function Page() {
   //const [cities, setCities] = useState({});
@@ -58,14 +59,13 @@ export default function Page() {
           className={"searchBar"}
           placeholder={"Search for a city..."}
           value={searchBoxValue}
-          minLength={6}
-          debounceTimeout={100}
+          minLength={4}
+          debounceTimeout={300}
           onChange={(e) => setSearchBoxValue(e.target.value)}
         />
         <div>
-          {searchResults.map((result, i) => {
-            console.log(result)
-            return <p>{result.item}</p>;
+          {searchResults.map((result) => {
+            return <CityLink city={result} />;
           })}
         </div>
       </section>

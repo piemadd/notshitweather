@@ -1,6 +1,8 @@
 //takes a fuse search result and returns a city card
 
-export default function CityLink({ city }) {
+import { useEffect, useState } from "react";
+
+export default function CityLink({ city, coords }) {
   const text = city.matches[0].value;
   let highlightSections = [];
 
@@ -24,7 +26,22 @@ export default function CityLink({ city }) {
     city.matches[0].value.substring(highlightSections[0], highlightSections[1])
   );
 
-  console.log(text)
+  useEffect(() => {
+    function setCurrent() {
+      fetch(`https://api.weather.gov/points/${coords.join(",")}`)
+        .then((res) => res.json())
+        .then((data) => {
+          window.sessionStorage.setItem("current", {
+            name: text,
+            coords: coords,
+            gridId: data.properties.gridId,
+            gridX: data.properties.gridX,
+            gridY: data.properties.gridY,
+          });
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);
 
   return (
     <p>

@@ -51,6 +51,12 @@ h1, h2, h3, h4, h5, h6, p, b {
   background-color: #444;
 }
 
+.clicky {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+
 .outerSection {
   padding: 4px;
   background-color: #222;

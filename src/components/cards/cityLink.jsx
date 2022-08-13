@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 export default function CityLink({ city, coords }) {
+  const [isClicked, setIsClicked] = useState(false);
   const text = city.matches[0].value;
   let highlightSections = [];
 
@@ -17,49 +18,64 @@ export default function CityLink({ city, coords }) {
   }
 
   if (highlightSections[highlightSections.length - 1] !== text.length) {
-    highlightSections.push(highlightSections[highlightSections.length - 1]);
-    highlightSections.push(text.length);
+    //highlightSections.push(highlightSections[highlightSections.length - 1]);
+    //highlightSections.push(text.length);
   }
 
-  console.log(highlightSections);
-  console.log(
-    city.matches[0].value.substring(highlightSections[0], highlightSections[1])
-  );
-
   useEffect(() => {
-    function setCurrent() {
-      fetch(`https://api.weather.gov/points/${coords.join(",")}`)
+    if (isClicked) {
+      console.log("clicked");
+      fetch(`https://api.weather.gov/points/${coords.join(",")}`, {
+        headers: {
+          "User-Agent": "notshitweather.com/client",
+        }
+      })
         .then((res) => res.json())
         .then((data) => {
-          window.sessionStorage.setItem("current", {
-            name: text,
-            coords: coords,
-            gridId: data.properties.gridId,
-            gridX: data.properties.gridX,
-            gridY: data.properties.gridY,
-          });
+          setIsClicked(false);
+          window.sessionStorage.setItem(
+            "current",
+            JSON.stringify({
+              name: text,
+              coords: coords,
+              gridId: data.properties.gridId,
+              gridX: data.properties.gridX,
+              gridY: data.properties.gridY,
+            })
+          );
+          const item = JSON.parse(window.sessionStorage.getItem("current"));
+          console.table(item);
+          console.log(item);
         })
         .catch((err) => console.log(err));
     }
-  }, []);
+  }, [isClicked]);
+
+  console.log("render");
 
   return (
-    <p>
-      {highlightSections.map((section, index) => {
-        if (index % 2 === 0) {
-          return (
-            <span key={index} className={"highlight"}>
-              {text.substring(section, highlightSections[index + 1])}
-            </span>
-          );
-        } else {
-          return (
-            <span key={index}>
-              {text.substring(section, highlightSections[index + 1])}
-            </span>
-          );
-        }
-      })}
+    <p style={
+      {
+        fontSize: "1.2rem",
+      }
+    }>
+      <a onClick={() => setIsClicked(true)} className={'clicky'}>
+        {highlightSections.map((section, index) => {
+          if (index % 2 === 0) {
+            return (
+              <span key={index} className={"highlight"}>
+                {text.substring(section, highlightSections[index + 1])}
+              </span>
+            );
+          } else {
+            return (
+              <span key={index}>
+                {text.substring(section, highlightSections[index + 1])}
+              </span>
+            );
+          }
+        })}
+      </a>
     </p>
   );
 }

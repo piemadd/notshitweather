@@ -9,8 +9,8 @@ import Fuse from "fuse.js";
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { DebounceInput } from "react-debounce-input";
-import cities from "../data/cities";
-import CityLink from "./cards/cityLink";
+import cities from "../../data/cities";
+import CityLink from "../cards/cityLink";
 
 export default function Page() {
   //const [cities, setCities] = useState({});
@@ -35,8 +35,8 @@ export default function Page() {
         : 0.1;
 
       return (
-        cities[b.item] * (1 - b.score) * bMultiplier -
-        cities[a.item] * (1 - a.score) * aMultiplier
+        cities[b.item].population * (1 - b.score) * bMultiplier -
+        cities[a.item].population * (1 - a.score) * aMultiplier
       );
     });
 
@@ -60,12 +60,12 @@ export default function Page() {
           placeholder={"Search for a city..."}
           value={searchBoxValue}
           minLength={4}
-          debounceTimeout={300}
+          debounceTimeout={400}
           onChange={(e) => setSearchBoxValue(e.target.value)}
         />
         <div>
           {searchResults.map((result) => {
-            return <CityLink city={result} />;
+            return <CityLink city={result} coords={cities[result.item].coordinates} />;
           })}
         </div>
       </section>

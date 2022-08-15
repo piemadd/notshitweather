@@ -16,27 +16,38 @@ export default function CitySelector() {
 
   return (
     <>
-      <label htmlFor="states">Choose a Region:</label>
-
-      <select
-        name="states"
-        id="states"
-        onChange={(e) => {
-          setSelectedState(e.target.value);
-          console.log("selectedState", e.target.value);
-        }}
-      >
-        <option value="">---</option>
-        {states.sort().map((state) => {
-          return (
-            <option key={state} value={state}>
-              {state}
-            </option>
-          );
-        })}
-      </select>
+      <div style={{
+        fontSize: "1.4rem",
+        margin: "6px 6px 12px 6px",
+        display: 'flex',
+        alignItems: 'center',
+      }}>
+        <label htmlFor="states">
+          Choose a Region:
+        </label>
+        &nbsp;
+        <select
+          name="states"
+          id="states"
+          className="dropDown"
+          onChange={(e) => {
+            setSelectedState(e.target.value);
+            console.log("selectedState", e.target.value);
+          }}
+        >
+          <option value="all">All</option>
+          {states.sort().map((state) => {
+            return (
+              <option key={state} value={state}>
+                {state}
+              </option>
+            );
+          })}
+        </select>
+      </div>
       {Object.values(cities).map((city) => {
-        if (!city.name.includes(selectedState)) {
+        let state = city.name.split(', ')[city.name.split(', ').length - 1];
+        if (state !== selectedState && selectedState !== 'all') {
           return null;
         }
 

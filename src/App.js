@@ -48,15 +48,16 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
+  console.log(currentPath.replace("/", "").split("/")[0]);
   let content = null;
-  switch (currentPath) {
-    case "/":
+  switch (currentPath.replace("/", "").split("/")[0]) {
+    case "":
       content = <Page data={appData} />;
       break;
-    case "/cities":
+    case "cities":
       content = <CitySelector />;
       break;
-    case "/settings":
+    case "settings":
       content = <div>settings</div>;
       break;
     default:
@@ -81,9 +82,11 @@ function App() {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              News
+              amongus sussy weather
             </Typography>
-            <Button color="inherit">Login</Button>
+            {
+              //<Button color="inherit">Login</Button>
+            }
           </Toolbar>
         </AppBar>
       </Paper>

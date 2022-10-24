@@ -64,13 +64,13 @@ export default function CityLink({ city, coords }) {
           if (index % 2 === 0) {
             return (
               <span key={index} className={"highlight"}>
-                {text.substring(section, highlightSections[index + 1])}
+                {text.substring(section, highlightSections[index + 1] + 1)}
               </span>
             );
           } else {
             return (
               <span key={index}>
-                {text.substring(section, highlightSections[index + 1])}
+                {text.substring(section + 1, highlightSections[index + 1])}
               </span>
             );
           }
